@@ -1,0 +1,85 @@
+//создаем сущность товар
+
+CREATE TABLE IF NOT EXISTS public."Product"
+(
+    "Id" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Title_book" character varying(64) COLLATE pg_catalog."default",
+    "Author" character varying(64) COLLATE pg_catalog."default",
+    "Year_of_publication" character varying(25) COLLATE pg_catalog."default",
+    "Genre" character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Product"
+    OWNER to postgres;
+
+//  создаем связанную таблицу в которой указываем сведения о количестве книг в наличии
+
+    CREATE TABLE IF NOT EXISTS public."Warehouse"
+(
+    "Id" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Id_product" bigint NOT NULL,
+    "Address_of_warehouse" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    "Quantity" integer NOT NULL,
+    CONSTRAINT "Id_pkey" PRIMARY KEY ("Id"),
+    CONSTRAINT "Id_product_fkey" FOREIGN KEY ("Id_product")
+        REFERENCES public."Product" ("Id") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Warehouse"
+    OWNER to postgres;
+
+
+
+// создаем сущность заказчик
+
+
+    CREATE TABLE IF NOT EXISTS public."Customer"
+(
+    "Id" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Name" character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    "Address_of_email" character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT id_pkey PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Customer"
+    OWNER to postgres;
+
+
+// создаем сущность заказ
+
+    CREATE TABLE IF NOT EXISTS public."Custom"
+(
+    "Id" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Id_customer" bigint NOT NULL,
+    "Id_product" bigint NOT NULL,
+    "Quantity" integer NOT NULL,
+    "Payment_has_been" boolean NOT NULL,
+    CONSTRAINT id1_pkey PRIMARY KEY ("Id"),
+    CONSTRAINT id_customer_fkey FOREIGN KEY ("Id_customer")
+        REFERENCES public."Customer" ("Id") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT id_product_fkey FOREIGN KEY ("Id_product")
+        REFERENCES public."Product" ("Id") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Custom"
+    OWNER to postgres;
+
+
+
+
+

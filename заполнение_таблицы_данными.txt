@@ -1,0 +1,42 @@
+// добавление данных в таблицу Product
+
+INSERT INTO public."Product"(
+	"Title_book", "Author", "Year_of_publication", "Genre")
+	VALUES ('Соки земли', 'Кнут Гамсун', '4-издание - 2018', 'Роман'),
+	('О войне', 'Карл Фон Клаузевиц', '2-издание - 1853', 'Нон-фикшен'),
+	('Искусство Войны', 'Cунь Цзы', '10-издание - 2006', 'Трактат'),
+	('Хагакурэ', 'Цунэтомо Ямомото', '7-издание-2010', 'Трактат'),
+	('Книга Пяти колец', 'Миямото Мусаси', '13-издание', 'Трактат');
+
+
+    // добавление данных в таблицу Warehouse
+
+    INSERT INTO public."Warehouse"(
+	"Id_product", "address_of_warehouse", "Quantity")
+	VALUES 
+    (2, 'ул. Ромашковая, д. 20', '100'),
+	(1, 'ул. Ромашковая, д. 20', '111'),
+	(3, 'ул. Нордлингов, д. 48', '58'),
+	(5, 'ул. Эстергетланд, д. 11', '40'),
+	(4, 'ул. Эстергетланд, д. 11', '80'),
+	(1, 'ул. Нордлингов, д. 48', '20'),
+	(3, 'ул. Ромашковая, д. 20', '10');
+
+    // добавление данных в таблицу Customer
+
+    INSERT INTO public."Customer"("Name", "Address_of_email")
+	VALUES ('Peter A.', 'petera@example.com'),
+	('John B.', 'johnb@example.com'),
+	('James S.', 'james@example.com'),
+	('Greg D.', 'gregd@example.com'),
+	('Michael F.', 'michaelf@example.com');
+
+
+    // добавление данных в таблицу Custom
+
+INSERT INTO public."Customer"("Id_customer", "Id_product", "Quantity", "Payment_has_been")
+	VALUES (1, 2, '1', 'true'),
+	(3, 1, '1', 'true'),
+	(4, 5, '1', 'false'),
+	(5, 2, '1', 'true'),
+	(2, 3, '1', 'true');

@@ -1,0 +1,18 @@
+//Триггер в таблице Custom, который в случае добавления новых данных в таблицу, автоматически уменьшает количество книг в наличии в таблице Warehouse
+
+ CREATE OR REPLACE FUNCTION update_book_quantity()
+	RETURNS TRIGGER AS $$
+	BEGIN
+	   UPDATE public."Warehouse" AS w
+	        SET "Quantity" = w."Quantity" - NEW."Quantity"
+	        FROM public."Custom" AS c
+	        WHERE w."Id_product" = c."Id_product";
+	
+	    RETURN NEW;
+	END;
+	$$ LANGUAGE plpgsql;
+	
+	CREATE TRIGGER on_Сustom1_insert
+	AFTER INSERT ON public."Custom"
+	FOR EACH ROW
+	EXECUTE FUNCTION update_book_quantity();

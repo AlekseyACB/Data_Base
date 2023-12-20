@@ -1,0 +1,17 @@
+// соединим  данные о названии книги из таблицы Product, данные об имени заказчика из таблицы Customer, 
+данные о количестве книг и о состоянии платежа из таблицы Custom, данные о количестве книг из таблицы Warehouse
+
+SELECT
+    t1."Name",
+    t3."Title_book",
+    t2."Quantity",
+    t2."Payment_has_been",
+    t4."Quantity" AS warehouse_quantity
+FROM
+    public."Customer" AS t1
+INNER JOIN
+    public."Custom" AS t2 ON t1."Id" = t2."Id_customer"
+INNER JOIN
+    public."Product" AS t3 ON t3."Id" = t2."Id_product"
+INNER JOIN
+    public."Warehouse" AS t4 ON t3."Id" = t4."Id_product";
